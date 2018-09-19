@@ -1,17 +1,23 @@
 <template>
-  <div id="app" class="container">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="section">  
+    <div class="columns">
+      <div class="column is-half is-offset-one-quarter">
+        <figure class="image is-square">
+          <img alt="Grime Diagram" src="./assets/grimeonediediagram.png">
+        </figure>
+        <Home msg="Welcome to Vrime Dice!"/>
+      </div> 
+    </div> 
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import Home from './components/Home.vue';
 
 export default {
   name: 'app',
   components: {
-    HelloWorld,
+    Home,
   },
 };
 </script>
@@ -21,29 +27,28 @@ export default {
 @charset "utf-8";
 
 // Import a Google Font
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One');
 
 // Set your brand colors
-$purple: #8A4D76;
-$pink: #FA7C91;
+$green: #365e35;
+$black-bis: #111111;
+$turquoise: #b7f0e7;
 $brown: #757763;
 $beige-light: #D0D1CD;
 $beige-lighter: #EFF0EB;
 
 // Update Bulma's global variables
-$family-sans-serif: "Nunito", sans-serif;
+$family-sans-serif: "Fjalla One", sans-serif;
 $grey-dark: $brown;
 $grey-light: $beige-light;
-$primary: $purple;
-$link: $pink;
+$dark: $black-bis;
+$primary: $green;
+$link: $turquoise;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
 
 // Update some of Bulma's component variables
 $body-background-color: $beige-lighter;
-$control-border-width: 2px;
-$input-border-color: transparent;
-$input-shadow: none;
 
 // Import only what you need from Bulma
 @import "../node_modules/bulma";
