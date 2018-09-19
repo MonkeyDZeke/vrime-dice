@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="section">
     <div class="columns">
-      <div class="column is-half is-offset-one-quarter">
+      <div class="column is-three-fifths is-offset-one-fifth">
         <figure class="image is-square">
           <img alt="Grime Diagram" src="./assets/grimeonediediagram.png">
         </figure>
@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="columns">
-      <div class="column is-half is-offset-one-quarter">
+      <div class="column is-three-fifths is-offset-one-fifth">
         <div class="buttons is-centered">
           <a @click.prevent="pools += 1" class="button is-large is-rounded is-primary">
             Add a New Pool

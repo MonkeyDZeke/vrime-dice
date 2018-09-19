@@ -1,58 +1,86 @@
 <template>
   <div class="box">
-    <div class="buttons has-addons">
+    <div class="level">
       <a
-        v-show="setup"
-        v-for="(die, id) in dice"
-        :key="id"
-        @click.prevent="addDie(id, 'set1')"
-        :class="'button ' + id">
-        {{ die.name }}
-      </a>
-    </div>
-    <div class="buttons has-addons">
-      <a
-        v-show="setup"
-        v-for="(die, id) in dice"
-        :key="id"
-        @click.prevent="addDie(id, 'set2')"
-        :class="'button ' + id">
-        {{ die.name }}
+        v-show="set1.length && set2.length"
+        class="button is-fullwidth is-rounded"
+        @click.prevent="rollDice">
+        Roll Dice!
       </a>
     </div>
     <div class="message">
-      <div class="message-header">Set One</div>
+      <div class="message-header">
+        <p>Set One</p>
+        <div class="buttons has-addons">
+          <a
+            v-show="setup"
+            v-for="(die, id) in dice"
+            :key="id"
+            @click.prevent="addDie(id, 'set1')"
+            :class="'button ' + id">
+            {{ die.name }}
+          </a>
+        </div>
+      </div>
       <div class="message-body">
         <span
           v-for="(die, index) in set1"
           :key="index * Date.now()"
           :class="'tag is-rounded ' + dice[die].name">
           {{ dice[die].name }}
-          <button @click.prevent="set1.splice(index, 1)" class="delete is-small"></button>
+          <button @click.prevent="set1.splice(index, 1)" v-show="setup" class="delete is-small"></button>
         </span>
       </div>
     </div>
     <div class="message">
-      <div class="message-header">Set One</div>
+      <div class="message-header">
+        <p>Set Two</p>
+        <div class="buttons has-addons">
+          <a
+            v-show="setup"
+            v-for="(die, id) in dice"
+            :key="id"
+            @click.prevent="addDie(id, 'set2')"
+            :class="'button ' + id">
+            {{ die.name }}
+          </a>
+        </div>
+      </div>
       <div class="message-body">
         <span
           v-for="(die, index) in set2"
           :key="index * Date.now()"
           :class="'tag is-rounded ' + dice[die].name">
           {{ dice[die].name }}
-          <button @click.prevent="set2.splice(index, 1)" class="delete is-small"></button>
+          <button @click.prevent="set2.splice(index, 1)" v-show="setup" class="delete is-small"></button>
         </span>
       </div>
     </div>
+    <Rolls v-show="rolls.length" v-bind:rolls="rolls" />
   </div>
 </template>
 
 <script>
+import Rolls from './Rolls.vue';
+
 export default {
   name: 'pool',
   methods: {
     addDie(id, set) {
       this[set].push(this.dice[id].name);
+    },
+    rollDice() {
+      this.setup = false;
+      this.rolls.push({
+        results1: {
+          dice: this.set1.map(die => this.dice[die].sides[Math.floor(Math.random() * this.dice[die].sides.length)]),
+          i: this.rolls.length + 1,
+        },
+        results2: {
+          dice: this.set2.map(die => this.dice[die].sides[Math.floor(Math.random() * this.dice[die].sides.length)]),
+          i: this.rolls.length + 1,
+        },
+      });
     },
   },
   data() {
@@ -60,6 +88,7 @@ export default {
       setup: true,
       set1: [],
       set2: [],
+      rolls: [],
       dice: {
         Blue: {
           name: 'Blue',
@@ -83,6 +112,9 @@ export default {
         },
       },
     };
+  },
+  components: {
+    Rolls,
   },
 };
 </script>
