@@ -1,23 +1,40 @@
 <template>
-  <div id="app" class="section">  
+  <div id="app" class="section">
     <div class="columns">
       <div class="column is-half is-offset-one-quarter">
         <figure class="image is-square">
           <img alt="Grime Diagram" src="./assets/grimeonediediagram.png">
         </figure>
         <Home msg="Welcome to Vrime Dice!"/>
-      </div> 
-    </div> 
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column is-half is-offset-one-quarter">
+        <div class="buttons is-centered">
+          <a @click.prevent="pools += 1" class="button is-large is-rounded is-primary">
+            Add a New Pool
+          </a>
+        </div>
+        <Game v-bind:pools="pools" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Home from './components/Home.vue';
+import Game from './components/Game.vue';
 
 export default {
   name: 'app',
+  data() {
+    return {
+      pools: 1,
+    };
+  },
   components: {
     Home,
+    Game,
   },
 };
 </script>
