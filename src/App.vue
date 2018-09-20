@@ -51,6 +51,7 @@ $green: #365e35;
 $black-bis: #111111;
 $turquoise: #b7f0e7;
 $brown: #757763;
+$red: #6e3636;
 $beige-light: #D0D1CD;
 $beige-lighter: #EFF0EB;
 

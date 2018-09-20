@@ -28,7 +28,10 @@
           :key="index * Date.now()"
           :class="'tag is-rounded ' + dice[die].name">
           {{ dice[die].name }}
-          <button @click.prevent="set1.splice(index, 1)" v-show="setup" class="delete is-small"></button>
+          <button
+            @click.prevent="set1.splice(index, 1)"
+            v-show="setup"
+            class="delete is-small"></button>
         </span>
       </div>
     </div>
@@ -52,7 +55,10 @@
           :key="index * Date.now()"
           :class="'tag is-rounded ' + dice[die].name">
           {{ dice[die].name }}
-          <button @click.prevent="set2.splice(index, 1)" v-show="setup" class="delete is-small"></button>
+          <button
+            @click.prevent="set2.splice(index, 1)"
+            v-show="setup"
+            class="delete is-small"></button>
         </span>
       </div>
     </div>
@@ -63,6 +69,10 @@
 <script>
 import Rolls from './Rolls.vue';
 
+function arand(a) {
+  return a[Math.floor(Math.random() * a.length)];
+}
+
 export default {
   name: 'pool',
   methods: {
@@ -71,15 +81,17 @@ export default {
     },
     rollDice() {
       this.setup = false;
+      const results1 = this.set1.map(die => arand(this.dice[die].sides));
+      const results2 = this.set2.map(die => arand(this.dice[die].sides));
+      const sum1 = results1.reduce((a, b) => a + b, 0);
+      const sum2 = results2.reduce((a, b) => a + b, 0);
+      this.wins.push([sum1 > sum2, sum2 > sum1]);
       this.rolls.push({
-        results1: {
-          dice: this.set1.map(die => this.dice[die].sides[Math.floor(Math.random() * this.dice[die].sides.length)]),
-          i: this.rolls.length + 1,
-        },
-        results2: {
-          dice: this.set2.map(die => this.dice[die].sides[Math.floor(Math.random() * this.dice[die].sides.length)]),
-          i: this.rolls.length + 1,
-        },
+        results1,
+        results2,
+        sum1,
+        sum2,
+        i: this.rolls.length + 1,
       });
     },
   },
@@ -88,6 +100,7 @@ export default {
       setup: true,
       set1: [],
       set2: [],
+      wins: [],
       rolls: [],
       dice: {
         Blue: {

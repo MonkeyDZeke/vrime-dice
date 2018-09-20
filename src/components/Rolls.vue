@@ -1,23 +1,22 @@
 <template>
-  <div class="columns">
-    <div class="column">
-      <div
-        v-for="roll in rolls.results1"
-        :key="roll.i"
-        class="box">
-        <ul>
-          <li v-for="(die, j) in roll.dice" :key="j">{{die}}</li>
-        </ul>
-      </div>
-    </div>
-    <div class="column">
-      <div
-        v-for="roll in rolls.results2"
-        :key="roll.i"
-        class="box">
-        <ul>
-          <li v-for="(die, j) in roll.dice" :key="j">{{die}}</li>
-        </ul>
+  <div class="field is-grouped is-grouped-multiline">
+    <div
+      class="control"
+      v-for="roll in rolls"
+      :key="roll.i">
+      <div class="tags has-addons">
+        <span class="tag" :class="roll.sum1 > roll.sum2 ? 'is-success' : 'is-danger'">
+          <strong class="has-text-white">
+            Set One:&nbsp;
+          </strong>
+          {{ roll.results1.join(', ') }} = {{ roll.sum1 }}
+        </span>
+        <span class="tag" :class="roll.sum2 > roll.sum1 ? 'is-success' : 'is-danger'">
+          <strong class="has-text-white">
+            Set Two:&nbsp;
+          </strong>
+          {{ roll.results2.join(', ') }} = {{ roll.sum2 }}
+        </span>
       </div>
     </div>
   </div>
