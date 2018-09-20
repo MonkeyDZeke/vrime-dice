@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import 'vue-material-design-icons/styles.css';
 import Home from './components/Home.vue';
 import Game from './components/Game.vue';
 
@@ -47,11 +48,11 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Fjalla+One');
 
 // Set your brand colors
-$green: #365e35;
+$green: #539252;
 $black-bis: #111111;
 $turquoise: #b7f0e7;
 $brown: #757763;
-$red: #6e3636;
+$red: #b35757;
 $beige-light: #D0D1CD;
 $beige-lighter: #EFF0EB;
 

@@ -8,9 +8,18 @@
         Roll Dice!
       </a>
     </div>
-    <div class="message">
+    <div class="message is-dark">
       <div class="message-header">
-        <p>Set One</p>
+        <p :class="this.winner > 0 ? 'has-text-success' : this.winner < 0 ? 'has-text-danger' : ''">
+          Set One
+          <span
+            v-for="(fight, i) in wins"
+            :key="i"
+            class="icon"
+            :class="fight[0] ? 'has-text-success' : 'has-text-danger'">
+            <sword-cross class="mdi" :class="fight[0] ? 'mdi-flip-v' : ''"/>
+          </span>
+        </p>
         <div class="buttons has-addons">
           <a
             v-show="setup"
@@ -35,9 +44,18 @@
         </span>
       </div>
     </div>
-    <div class="message">
+    <div class="message is-dark">
       <div class="message-header">
-        <p>Set Two</p>
+        <p :class="this.winner < 0 ? 'has-text-success' : this.winner > 0 ? 'has-text-danger' : ''">
+          Set Two
+          <span
+            v-for="(fight, i) in wins"
+            :key="i"
+            class="icon"
+            :class="fight[1] ? 'has-text-success' : 'has-text-danger'">
+            <sword-cross />
+          </span>
+        </p>
         <div class="buttons has-addons">
           <a
             v-show="setup"
@@ -67,6 +85,7 @@
 </template>
 
 <script>
+import SwordCross from 'vue-material-design-icons/SwordCross.vue';
 import Rolls from './Rolls.vue';
 
 function arand(a) {
@@ -80,12 +99,10 @@ export default {
       this[set].push(this.dice[id].name);
     },
     rollDice() {
-      this.setup = false;
       const results1 = this.set1.map(die => arand(this.dice[die].sides));
       const results2 = this.set2.map(die => arand(this.dice[die].sides));
       const sum1 = results1.reduce((a, b) => a + b, 0);
       const sum2 = results2.reduce((a, b) => a + b, 0);
-      this.wins.push([sum1 > sum2, sum2 > sum1]);
       this.rolls.push({
         results1,
         results2,
@@ -97,10 +114,8 @@ export default {
   },
   data() {
     return {
-      setup: true,
       set1: [],
       set2: [],
-      wins: [],
       rolls: [],
       dice: {
         Blue: {
@@ -126,8 +141,21 @@ export default {
       },
     };
   },
+  computed: {
+    winner() {
+      return this.rolls
+        .reduce((a, r) => (r.sum1 > r.sum2 ? a + 1 : a - 1), 0);
+    },
+    wins() {
+      return this.rolls.map(r => [r.sum1 > r.sum2, r.sum2 > r.sum1]);
+    },
+    setup() {
+      return this.rolls.length === 0;
+    },
+  },
   components: {
     Rolls,
+    SwordCross,
   },
 };
 </script>
