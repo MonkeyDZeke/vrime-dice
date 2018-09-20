@@ -22,6 +22,7 @@
         </p>
         <div class="buttons has-addons">
           <a
+            :title="die.sides.join(', ')"
             v-show="setup"
             v-for="(die, id) in dice"
             :key="id"
