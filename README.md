@@ -1,4 +1,5 @@
-# vrime
+# Welcome to Vrime Dice!
+For the math and science behind this project, check out the [original paper](http://singingbanana.com/dice/article.htm).
 
 ## Project setup
 ```
