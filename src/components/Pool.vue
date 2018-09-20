@@ -36,6 +36,7 @@
         <span
           v-for="(die, index) in set1"
           :key="index * Date.now()"
+          :title="dice[die].sides.join(', ')"
           :class="'tag is-rounded ' + dice[die].name">
           {{ dice[die].name }}
           <button
@@ -72,6 +73,7 @@
         <span
           v-for="(die, index) in set2"
           :key="index * Date.now()"
+          :title="dice[die].sides.join(', ')"
           :class="'tag is-rounded ' + dice[die].name">
           {{ dice[die].name }}
           <button
