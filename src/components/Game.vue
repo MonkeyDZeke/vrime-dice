@@ -10,7 +10,7 @@ import Pool from './Pool.vue';
 export default {
   name: 'game',
   props: {
-    pools: Number,
+    pools: Array,
   },
   components: {
     Pool,

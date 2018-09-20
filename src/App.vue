@@ -11,7 +11,7 @@
     <div class="columns">
       <div class="column is-three-fifths is-offset-one-fifth">
         <div class="buttons is-centered">
-          <a @click.prevent="pools += 1" class="button is-large is-rounded is-primary">
+          <a @click.prevent="pools.unshift(pools.length + 1)" class="button is-large is-rounded is-primary">
             Add a New Pool
           </a>
         </div>
@@ -30,7 +30,7 @@ export default {
   name: 'app',
   data() {
     return {
-      pools: 1,
+      pools: [1],
     };
   },
   components: {
